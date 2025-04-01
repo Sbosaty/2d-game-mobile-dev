@@ -1,54 +1,71 @@
-using System;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    [Header("Car Settings")]
+    public float acceleration = 5f;   // Forward acceleration
+    public float maxSpeed = 10f;      // Maximum speed
+    public float turnSpeed = 200f;    // Rotation speed
+    public float driftFactor = 0.9f;  // Higher means less sliding
+    public float friction = 3f;       // How fast the car slows down when not moving
 
-    public float accFactor = 30.0f;
-    public float turnFactor = 3.5f;
-
-    public float accInput = 0;
-    public float steerInput = 0;
-
-    float rotationAngle;
-
-    private Rigidbody2D carRigidbody;
+    private Rigidbody2D rb;
+    private float inputX;
+    private float inputY;
 
     private void Awake()
     {
-        carRigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        
+        // Get player input
+        inputX = Input.GetAxis("Horizontal"); // Left / Right
+        inputY = Input.GetAxis("Vertical");   // Up / Down
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        ApplyEngineForce();
-
+        ApplyAcceleration();
         ApplySteering();
+        ApplyDrift();
+        ApplyFriction();
     }
 
-    private void ApplySteering()
+    void ApplyAcceleration()
     {
-        rotationAngle -= steerInput * turnFactor;
-        carRigidbody.MoveRotation(rotationAngle);
+        if (inputY != 0)
+        {
+            rb.AddForce(transform.up * inputY * acceleration, ForceMode2D.Force);
+        }
+
+        // Limit max speed
+        rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
     }
 
-    private void ApplyEngineForce()
+    void ApplySteering()
     {
-        Vector2 engineForceVector = transform.up * accFactor * accInput;
-
-        carRigidbody.AddForce(engineForceVector, ForceMode2D.Force);
+        if (rb.linearVelocity.magnitude > 0.1f) // Turn only when moving
+        {
+            float turnAmount = -inputX * turnSpeed * Time.fixedDeltaTime;
+            rb.MoveRotation(rb.rotation + turnAmount);
+        }
     }
 
-    public void SetInputVector(Vector2 inputVector) {
-        steerInput = inputVector.x;
-        accFactor = inputVector.y;
+    void ApplyDrift()
+    {
+        Vector2 forwardVelocity = transform.up * Vector2.Dot(rb.linearVelocity, transform.up);
+        Vector2 rightVelocity = transform.right * Vector2.Dot(rb.linearVelocity, transform.right);
+
+        rb.linearVelocity = forwardVelocity + rightVelocity * driftFactor;
     }
 
+    void ApplyFriction()
+    {
+        if (inputY == 0) // If no acceleration input, apply friction
+        {
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, friction * Time.fixedDeltaTime);
+        }
+    }
 }
