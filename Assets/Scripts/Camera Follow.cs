@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     {
         cam = Camera.main;
 
-        target = GameManager.Instance.selectedCar.transform;
+        target = GameManager.Instance.selectedVeicles[0].transform;
 
         targetRb = target.GetComponent<Rigidbody2D>();
     }
