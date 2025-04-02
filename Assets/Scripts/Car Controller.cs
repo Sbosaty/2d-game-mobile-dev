@@ -15,14 +15,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            inputX = InputHandeler.GetTouchInput();
-        }
-        else 
-        {
-            inputX = Input.GetAxisRaw("Horizontal");
-        }
+        inputX = InputHandeler.GetTouchInput();
     }
 
     private void FixedUpdate()
