@@ -2,23 +2,19 @@ using UnityEngine;
 
 public class InputHandeler : MonoBehaviour
 {
-    private CarController carController;
 
-    private Vector2 inputVector;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static int GetTouchInput()
     {
-        
-    }
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            float screenMidPoint = Screen.width / 2;
 
-    // Update is called once per frame
-    void Update()
-    {
-        inputVector.x = Input.GetAxis("Horizontal");
-        inputVector.y = Input.GetAxis("Vertical");
-
-        carController.SetInputVector(inputVector);
+            if (touch.phase == TouchPhase.Began)
+            {
+                return touch.position.x >= screenMidPoint ? 1 : -1;
+            }
+        }
+        return 0;
     }
 }

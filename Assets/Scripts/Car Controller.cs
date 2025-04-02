@@ -2,16 +2,11 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    [Header("Car Settings")]
-    public float acceleration = 5f;   // Forward acceleration
-    public float maxSpeed = 10f;      // Maximum speed
-    public float turnSpeed = 200f;    // Rotation speed
-    public float driftFactor = 0.9f;  // Higher means less sliding
-    public float friction = 3f;       // How fast the car slows down when not moving
+    public float acceleration = 5f, maxSpeed = 10f, turnSpeed = 200f,  driftFactor = 0.9f, friction = 3f;   
+
+    private float inputX, inputY = 1;
 
     private Rigidbody2D rb;
-    private float inputX;
-    private float inputY;
 
     private void Awake()
     {
@@ -20,17 +15,28 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        // Get player input
-        inputX = Input.GetAxis("Horizontal"); // Left / Right
-        inputY = Input.GetAxis("Vertical");   // Up / Down
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            inputX = InputHandeler.GetTouchInput();
+        }
+        else 
+        {
+            inputX = Input.GetAxisRaw("Horizontal");
+        }
     }
 
     private void FixedUpdate()
     {
         ApplyAcceleration();
+
         ApplySteering();
+
         ApplyDrift();
-        ApplyFriction();
+
+        if (inputY == 0) 
+        {
+            ApplyFriction();
+        }
     }
 
     void ApplyAcceleration()
@@ -40,13 +46,12 @@ public class CarController : MonoBehaviour
             rb.AddForce(transform.up * inputY * acceleration, ForceMode2D.Force);
         }
 
-        // Limit max speed
         rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
     }
 
     void ApplySteering()
     {
-        if (rb.linearVelocity.magnitude > 0.1f) // Turn only when moving
+        if (rb.linearVelocity.magnitude > 0.1f)
         {
             float turnAmount = -inputX * turnSpeed * Time.fixedDeltaTime;
             rb.MoveRotation(rb.rotation + turnAmount);
@@ -56,6 +61,7 @@ public class CarController : MonoBehaviour
     void ApplyDrift()
     {
         Vector2 forwardVelocity = transform.up * Vector2.Dot(rb.linearVelocity, transform.up);
+
         Vector2 rightVelocity = transform.right * Vector2.Dot(rb.linearVelocity, transform.right);
 
         rb.linearVelocity = forwardVelocity + rightVelocity * driftFactor;
@@ -63,9 +69,6 @@ public class CarController : MonoBehaviour
 
     void ApplyFriction()
     {
-        if (inputY == 0) // If no acceleration input, apply friction
-        {
-            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, friction * Time.fixedDeltaTime);
-        }
+        rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, friction * Time.fixedDeltaTime);
     }
 }
