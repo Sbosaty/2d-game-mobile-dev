@@ -15,13 +15,16 @@ public class CameraFollow : MonoBehaviour
     {
         cam = Camera.main;
 
-        target = GameManager.Instance.selectedVeicles[0].transform;
+        FindTarget();
 
         targetRb = target.GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
+        if (target == null)
+            return;
+
         Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
@@ -38,5 +41,15 @@ public class CameraFollow : MonoBehaviour
         targetZoom = Mathf.Clamp(targetZoom, baseZoom, maxZoomOut);
 
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * smoothSpeed);
+    }
+
+    void FindTarget() 
+    {
+        GameObject newTarget = GameObject.FindWithTag("Player");
+
+        if (newTarget == isActiveAndEnabled)
+        {
+            target = newTarget.transform;
+        }
     }
 }
