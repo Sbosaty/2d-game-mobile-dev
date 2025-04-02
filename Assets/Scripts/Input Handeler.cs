@@ -13,10 +13,8 @@ public class InputHandeler : MonoBehaviour
                 Touch touch = Input.GetTouch(0);
                 float screenMidPoint = Screen.width / 2;
 
-                if (touch.phase == TouchPhase.Began)
-                {
-                    return touch.position.x >= screenMidPoint ? 1 : -1;
-                }
+                return touch.position.x >= screenMidPoint ? 1 : -1;
+
             }
 
             return 0;
