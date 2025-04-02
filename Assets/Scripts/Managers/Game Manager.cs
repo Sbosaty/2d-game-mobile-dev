@@ -18,9 +18,6 @@ public class GameManager : MonoBehaviour
     public int selectedDirtCar = -1;
     public int selectedBoat = -1;
 
-    public GameObject[] cars;
-    public GameObject[] dirtCars;
-    public GameObject[] boats;
 
     private void Awake()
     {
@@ -34,13 +31,18 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    public void AddScore(int amount)
-    {
-        score += amount;
+        UnlockCar(0);
+        UnlockDirtCar(0);
+        UnlockBoat(0);
+
+        SetSelectedCar(0);
+        SetSelectedDirtCar(0);
+        SetSelectedBoat(0);
+
         SaveGameData();
     }
+
 
     public void UnlockLevel(int levelIndex)
     {

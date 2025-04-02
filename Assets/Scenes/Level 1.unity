@@ -7272,6 +7272,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b9ff6d1292e45e46b4ed8618166299b, type: 3}
+--- !u!1 &281066657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 281066658}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &281066658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281066657}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.01, y: -5.44, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &286348883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13499,7 +13530,7 @@ GameObject:
   - component: {fileID: 588475431}
   - component: {fileID: 588475430}
   m_Layer: 5
-  m_Name: Vehicle 3 Button (2)
+  m_Name: Boat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13568,7 +13599,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 588475431}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 891122290}
+        m_TargetAssemblyTypeName: GameplayController, Assembly-CSharp
+        m_MethodName: SwapVehicle
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Boat
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &588475431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18532,6 +18575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 891122289}
+  - component: {fileID: 891122290}
   m_Layer: 0
   m_Name: Gameplay Controller
   m_TagString: Untagged
@@ -18554,6 +18598,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &891122290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891122288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d0b1927b298af94887799784a9639ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableCars:
+  - {fileID: 8751338876680874592, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
+  - {fileID: 8017041841955105505, guid: b05fc6817a7ffc1479d6bfed314a35a4, type: 3}
+  - {fileID: 6825629852430401989, guid: 0f0b76028d5d0d640b0a3db60e5d4542, type: 3}
+  - {fileID: 8463094284144148126, guid: e3832da557a8df74f9b71e71b8c2dcfa, type: 3}
+  availableDirtCars:
+  - {fileID: 9074684691666024134, guid: f617d14616b353242a0a90bd456592af, type: 3}
+  - {fileID: 6566173512951187563, guid: 7e17c086a0494d941a061fce6dca96d8, type: 3}
+  availableBoats:
+  - {fileID: 4852826784934592333, guid: 9d4506ce79a048c408be18966899ac97, type: 3}
+  - {fileID: 1692243251182250721, guid: dc8f82150c9e2ea46aec80a6a2466bcb, type: 3}
+  - {fileID: 7751683858882189885, guid: 33b86cb219075f146b0010a80ba4309b, type: 3}
+  - {fileID: 8265363814370716558, guid: 3b24f1abc6971e6449eef0b3d594a7a9, type: 3}
+  spawnPoint: {fileID: 281066658}
+  camController: {fileID: 519420033}
 --- !u!1001 &893904463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27000,7 +27071,7 @@ GameObject:
   - component: {fileID: 1190812879}
   - component: {fileID: 1190812878}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Switch Vehicles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33291,6 +33362,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4004643483021296680, guid: 8b9ff6d1292e45e46b4ed8618166299b, type: 3}
   m_PrefabInstance: {fileID: 760410394}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1560157934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560157936}
+  - component: {fileID: 1560157935}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1560157935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560157934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773db3aaca4f30a45821ceccf866c835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  selectedCar: -1
+  selectedDirtCar: -1
+  selectedBoat: -1
+--- !u!4 &1560157936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560157934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1569888891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37019,11 +37138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965257338037694388, guid: 44b9733a978d8d741929bbf39ac54ea5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.225
+      value: -27.49
       objectReference: {fileID: 0}
     - target: {fileID: 5965257338037694388, guid: 44b9733a978d8d741929bbf39ac54ea5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 53.111
+      value: 52.18
       objectReference: {fileID: 0}
     - target: {fileID: 5965257338037694388, guid: 44b9733a978d8d741929bbf39ac54ea5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -38274,7 +38393,7 @@ GameObject:
   - component: {fileID: 1893281518}
   - component: {fileID: 1893281517}
   m_Layer: 5
-  m_Name: Vehicle 2 Button (1)
+  m_Name: Dirt Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38343,7 +38462,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1893281518}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 891122290}
+        m_TargetAssemblyTypeName: GameplayController, Assembly-CSharp
+        m_MethodName: SwapVehicle
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DirtCar
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1893281518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42794,7 +42925,7 @@ GameObject:
   - component: {fileID: 2071920242}
   - component: {fileID: 2071920241}
   m_Layer: 5
-  m_Name: Vehicle 1 Button
+  m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42863,7 +42994,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2071920242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 891122290}
+        m_TargetAssemblyTypeName: GameplayController, Assembly-CSharp
+        m_MethodName: SwapVehicle
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Car
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2071920242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45240,63 +45383,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5366498879564353650, guid: d454e9b68787b004d821eb504b3dd176, type: 3}
   m_PrefabInstance: {fileID: 3292943925914438869}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &9004205606135033672
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3163839846588163465, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8751338876680874592, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
-      propertyPath: m_Name
-      value: OC 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fa1a4058c7eb73348b427ed975bb3a32, type: 3}
 --- !u!1001 &9134134684704873373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45581,10 +45667,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 891122289}
+  - {fileID: 281066658}
   - {fileID: 1312043443}
   - {fileID: 676806447}
   - {fileID: 1512374316}
   - {fileID: 1221720719}
-  - {fileID: 9004205606135033672}
   - {fileID: 2106545590}
   - {fileID: 1715803139}
+  - {fileID: 1560157936}

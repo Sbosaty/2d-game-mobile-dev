@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed * Time.deltaTime);
 
-        AdjustZoom();
+        //AdjustZoom();
     }
 
     void AdjustZoom()
@@ -43,11 +43,11 @@ public class CameraFollow : MonoBehaviour
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * smoothSpeed);
     }
 
-    void FindTarget() 
+    public void FindTarget() 
     {
         GameObject newTarget = GameObject.FindWithTag("Player");
 
-        if (newTarget == isActiveAndEnabled)
+        if (newTarget.activeSelf)
         {
             target = newTarget.transform;
         }
