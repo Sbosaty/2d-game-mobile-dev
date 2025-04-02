@@ -8,20 +8,20 @@ public class InputHandeler : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) 
         {
-            return (int) Input.GetAxisRaw("Horizontal");
-        }
-
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            float screenMidPoint = Screen.width / 2;
-
-            if (touch.phase == TouchPhase.Began)
+            if (Input.touchCount > 0)
             {
-                return touch.position.x >= screenMidPoint ? 1 : -1;
-            }
-        }
+                Touch touch = Input.GetTouch(0);
+                float screenMidPoint = Screen.width / 2;
 
-        return 0;
+                if (touch.phase == TouchPhase.Began)
+                {
+                    return touch.position.x >= screenMidPoint ? 1 : -1;
+                }
+            }
+
+            return 0;
+
+        }
+        return (int)Input.GetAxisRaw("Horizontal");
     }
 }
