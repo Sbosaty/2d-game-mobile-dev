@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameplayController : MonoBehaviour
@@ -19,7 +20,10 @@ public class GameplayController : MonoBehaviour
 
     private Transform newTransform;
 
-    private void Awake()
+    private Coroutine scoreCoroutine;
+
+
+    private void Start()
     {
         if (Instance == null)
         {
@@ -30,6 +34,12 @@ public class GameplayController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        Time.timeScale = 1.0f;
+
+        GameManager.Instance.score = 100;
+
+        Application.targetFrameRate = (60);
+
         GameObject empty = new GameObject();
 
         newTransform = empty.transform;
@@ -38,6 +48,46 @@ public class GameplayController : MonoBehaviour
 
         SpawnSelectedVehicles();
 
+        camController.FindTarget();
+
+        EventsHandeler.GameStart();
+    }
+
+    private void Update()
+    {
+        EventsHandeler.UpdateScore();
+    }
+
+    private void OnEnable()
+    {
+        EventsHandeler.OnGameStart += StartScoreDecreasing;
+    }
+
+    private void OnDisable()
+    {
+        EventsHandeler.OnGameStart -= StartScoreDecreasing;
+    }
+
+    private void StartScoreDecreasing()
+    {
+        Debug.Log("Starting ....");
+
+        if (scoreCoroutine == null)
+            scoreCoroutine = StartCoroutine(decreaseTimer());
+    }
+
+
+    private IEnumerator decreaseTimer()
+    {
+        while (GameManager.Instance.score > 0)
+        {
+            GameManager.Instance.score -= 5 * Time.deltaTime;
+            GameManager.Instance.score = Mathf.Max(GameManager.Instance.score, 0);
+            yield return null;
+        }
+
+        Time.timeScale = 0;
+        EventsHandeler.GameOver();
     }
 
     public void SwapVehicle(string type)

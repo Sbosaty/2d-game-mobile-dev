@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public int score = 0;
+    public float score = 0;
 
     private List<int> unlockedLevels = new List<int>();
 
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     private void SaveGameData()
     {
-        PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.SetFloat ("Score", score);
         PlayerPrefs.SetString("UnlockedLevels", string.Join(",", unlockedLevels));
         PlayerPrefs.SetString("UnlockedCars", string.Join(",", unlockedCars));
         PlayerPrefs.SetString("UnlockedDirtCars", string.Join(",", unlockedDirtCars));

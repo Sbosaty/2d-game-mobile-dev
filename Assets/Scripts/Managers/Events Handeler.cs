@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class EventsHandeler : MonoBehaviour
 {
-    public static event Action OnGameStart;
-
     public static event Action OnGameOver;
+
+    public static event Action OnGameStart;
 
     public static event Action OnGameWin;
 
@@ -13,12 +15,7 @@ public class EventsHandeler : MonoBehaviour
 
     public static event Action OnGameResume;
 
-    public static event Action<int> OnScoreChanged;
-
-    public static void GameStart()
-    {
-        OnGameStart?.Invoke();
-    }
+    public static event Action OnUpdateScore;
 
     public static void GameOver()
     {
@@ -28,14 +25,26 @@ public class EventsHandeler : MonoBehaviour
     public static void GameWin()
     {
         OnGameWin?.Invoke();
+    }  
+    
+    public static void GameStart()
+    {
+        OnGameStart?.Invoke();
     }
 
-    public static void GamePause() { OnGamePause?.Invoke(); }
-
-    public static void GameResume() { OnGameResume?.Invoke(); }
-
-    public static void ScoreChanged(int newScore)
+    public static void UpdateScore() 
     {
-        OnScoreChanged?.Invoke(newScore);
+        OnUpdateScore?.Invoke();
+
+    }
+
+    public static void GamePause() 
+    {
+        OnGamePause?.Invoke();
+    }
+
+    public static void GameResume()
+    { 
+        OnGameResume?.Invoke(); 
     }
 }

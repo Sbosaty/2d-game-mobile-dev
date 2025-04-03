@@ -17,12 +17,11 @@ public class CameraFollow : MonoBehaviour
 
         FindTarget();
 
-        targetRb = target.GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        if (target == null)
+        if (target == null || targetRb == null)
             return;
 
         Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
@@ -47,9 +46,11 @@ public class CameraFollow : MonoBehaviour
     {
         GameObject newTarget = GameObject.FindWithTag("Player");
 
-        if (newTarget.activeSelf)
+        if (newTarget == isActiveAndEnabled)
         {
             target = newTarget.transform;
+            targetRb = target.GetComponent<Rigidbody2D>();
+
         }
     }
 }

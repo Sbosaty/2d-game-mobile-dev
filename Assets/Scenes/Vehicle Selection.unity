@@ -619,10 +619,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  selectedVeicles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  selectedCar: -1
+  selectedDirtCar: -1
+  selectedBoat: -1
 --- !u!4 &192933863
 Transform:
   m_ObjectHideFlags: 0
@@ -2721,6 +2720,7 @@ GameObject:
   - component: {fileID: 1346164633}
   - component: {fileID: 1346164632}
   - component: {fileID: 1346164631}
+  - component: {fileID: 1346164634}
   m_Layer: 5
   m_Name: Go To Level Selection
   m_TagString: Untagged
@@ -2829,6 +2829,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346164629}
   m_CullTransparentMesh: 1
+--- !u!114 &1346164634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346164629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbcbc659061c7b48ba2442404e9fdf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Level Selection
 --- !u!1 &1391626286
 GameObject:
   m_ObjectHideFlags: 0
