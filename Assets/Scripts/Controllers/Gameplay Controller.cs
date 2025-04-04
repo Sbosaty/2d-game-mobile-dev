@@ -12,6 +12,8 @@ public class GameplayController : MonoBehaviour
 
     public Transform spawnPoint;
 
+    public float levelTime = 150;
+
     public CameraFollow camController;
 
     private GameObject spawnedCar;
@@ -36,7 +38,7 @@ public class GameplayController : MonoBehaviour
 
         Time.timeScale = 1.0f;
 
-        GameManager.Instance.score = 100;
+        GameManager.Instance.score = levelTime;
 
         Application.targetFrameRate = (60);
 
@@ -61,11 +63,20 @@ public class GameplayController : MonoBehaviour
     private void OnEnable()
     {
         EventsHandeler.OnGameStart += StartScoreDecreasing;
+        EventsHandeler.OnGameWin += AddReward;
+
     }
 
     private void OnDisable()
     {
         EventsHandeler.OnGameStart -= StartScoreDecreasing;
+        EventsHandeler.OnGameWin -= AddReward;
+    }
+
+    private void AddReward() 
+    {
+        GameManager.Instance.coins += 3 * (int)GameManager.Instance.score;
+        GameManager.Instance.SaveGameData();
     }
 
     private void StartScoreDecreasing()

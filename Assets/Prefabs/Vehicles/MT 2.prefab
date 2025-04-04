@@ -429,10 +429,10 @@ GameObject:
   - component: {fileID: 5468979722051746451}
   - component: {fileID: 3627995475461750686}
   - component: {fileID: 6871390913303059771}
-  - component: {fileID: -2497084548217500889}
+  - component: {fileID: 8706289451082742634}
   m_Layer: 6
   m_Name: MT 2
-  m_TagString: Player
+  m_TagString: DirtCar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -525,7 +525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 5
-  maxSpeed: 6
+  defaultMaxSpeed: 18
+  maxSpeed: 0
   turnSpeed: 50
   driftFactor: 0.9
   friction: 4
@@ -556,8 +557,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-2497084548217500889
-BoxCollider2D:
+--- !u!70 &8706289451082742634
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -591,17 +592,8 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.49, y: 7.2}
-    newSize: {x: 5.49, y: 7.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 5.49, y: 7.2}
-  m_EdgeRadius: 0
+  m_Size: {x: 3.05, y: 7.1999993}
+  m_Direction: 0
 --- !u!1 &6859377406505046239
 GameObject:
   m_ObjectHideFlags: 0

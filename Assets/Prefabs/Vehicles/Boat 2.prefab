@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3069096198813559594}
   - component: {fileID: 8385783291760695173}
   - component: {fileID: 5348438944143510391}
-  - component: {fileID: -2241120452921405688}
+  - component: {fileID: -8991765545557340817}
   m_Layer: 6
   m_Name: Boat 2
-  m_TagString: Player
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 5
-  maxSpeed: 6
+  defaultMaxSpeed: 8
+  maxSpeed: 8
   turnSpeed: 50
   driftFactor: 0.9
   friction: 4
@@ -136,8 +137,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-2241120452921405688
-BoxCollider2D:
+--- !u!70 &-8991765545557340817
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -171,17 +172,8 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 1.99}
-    newSize: {x: 0.78, y: 1.99}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.78, y: 1.99}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.51, y: 1.9899999}
+  m_Direction: 0
 --- !u!1 &2186423531574702510
 GameObject:
   m_ObjectHideFlags: 0

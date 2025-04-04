@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class VehicleController : MonoBehaviour
 {
-    public float acceleration = 5f, maxSpeed = 10f, turnSpeed = 200f,  driftFactor = 0.9f, friction = 3f;   
+    [SerializeField]
+    private float acceleration = 5f, defaultMaxSpeed = 10f, turnSpeed = 200f,  driftFactor = 0.9f, friction = 3f;
+
+    private float maxSpeed = 0;
 
     private float inputX, inputY = 1;
 
@@ -11,6 +14,8 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        maxSpeed = defaultMaxSpeed;
     }
 
     private void Update()
@@ -63,5 +68,25 @@ public class CarController : MonoBehaviour
     void ApplyFriction()
     {
         rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, friction * Time.fixedDeltaTime);
+    }
+
+    public void Stop() 
+    {
+        inputY = 0;
+    }
+
+    public void Go() 
+    {
+        inputY = 1;
+    }
+
+    public void ReturnToDefaultVelocity() 
+    {
+        maxSpeed = defaultMaxSpeed;
+    }
+
+    public void SetMaxSpeed(float SetMaxSpeed)
+    {
+        maxSpeed = SetMaxSpeed;
     }
 }

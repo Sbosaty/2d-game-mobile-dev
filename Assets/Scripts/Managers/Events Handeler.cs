@@ -17,9 +17,16 @@ public class EventsHandeler : MonoBehaviour
 
     public static event Action OnUpdateScore;
 
+    public static event Action OnUpdateCoins;
+
     public static void GameOver()
     {
         OnGameOver?.Invoke();
+    }
+    
+    public static void UpdateCoins()
+    {
+        OnUpdateCoins?.Invoke();
     }
 
     public static void GameWin()

@@ -290,10 +290,10 @@ GameObject:
   - component: {fileID: 1867715421218126614}
   - component: {fileID: 160668333490753062}
   - component: {fileID: 4782209446981804145}
-  - component: {fileID: -141932571064737434}
+  - component: {fileID: 3128789679057964246}
   m_Layer: 6
   m_Name: OC 3
-  m_TagString: Player
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 5
+  defaultMaxSpeed: 13
   maxSpeed: 6
   turnSpeed: 50
   driftFactor: 0.9
@@ -417,8 +418,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-141932571064737434
-BoxCollider2D:
+--- !u!70 &3128789679057964246
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -452,17 +453,8 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.55, y: 2.83}
-    newSize: {x: 1.55, y: 2.83}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.55, y: 2.83}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.22, y: 2.83}
+  m_Direction: 0
 --- !u!1 &7080909699317063861
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text scoreText;
+    private TMP_Text scoreText, rewardText;
 
     [SerializeField]
     private Button pauseButton, resumeButton;
@@ -61,12 +61,11 @@ public class UIManager : MonoBehaviour
 
     void WinGame() 
     {
+        rewardText.text = "+ $ " + 3 * (int)GameManager.Instance.score;
         winPanel.gameObject.SetActive(true);
         pausePanel.gameObject.SetActive(false);
         pauseButton.enabled = false;
         Time.timeScale = 0;
-
-
     }
 
     void GameOver() 

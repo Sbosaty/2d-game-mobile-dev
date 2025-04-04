@@ -44,7 +44,15 @@ public class CameraFollow : MonoBehaviour
 
     public void FindTarget() 
     {
-        GameObject newTarget = GameObject.FindWithTag("Player");
+        GameObject newTarget = GameObject.FindGameObjectWithTag("Car");
+
+        if (newTarget == null) 
+        {
+            newTarget = GameObject.FindGameObjectWithTag("Boat");
+
+            if(newTarget == null)
+                newTarget = GameObject.FindGameObjectWithTag("DirtCar");
+        }
 
         if (newTarget == isActiveAndEnabled)
         {

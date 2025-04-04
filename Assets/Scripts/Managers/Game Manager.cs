@@ -7,12 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public float score = 0;
+    public int coins = 300;
 
     private List<int> unlockedLevels = new List<int>();
 
-    private List<int> unlockedCars = new List<int>();
-    private List<int> unlockedDirtCars = new List<int>();
-    private List<int> unlockedBoats = new List<int>();
+    public List<int> unlockedCars = new List<int>();
+    public List<int> unlockedDirtCars = new List<int>();
+    public List<int> unlockedBoats = new List<int>();
 
     public int selectedCar = -1;
     public int selectedDirtCar = -1;
@@ -39,8 +40,6 @@ public class GameManager : MonoBehaviour
         SetSelectedCar(0);
         SetSelectedDirtCar(0);
         SetSelectedBoat(0);
-
-        SaveGameData();
     }
 
 
@@ -118,9 +117,10 @@ public class GameManager : MonoBehaviour
         return unlockedBoats.Contains(boatIndex);
     }
 
-    private void SaveGameData()
+    public void SaveGameData()
     {
         PlayerPrefs.SetFloat ("Score", score);
+        PlayerPrefs.SetInt ("Coins", coins);
         PlayerPrefs.SetString("UnlockedLevels", string.Join(",", unlockedLevels));
         PlayerPrefs.SetString("UnlockedCars", string.Join(",", unlockedCars));
         PlayerPrefs.SetString("UnlockedDirtCars", string.Join(",", unlockedDirtCars));
@@ -133,9 +133,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void LoadGameData()
+    public void LoadGameData()
     {
         score = PlayerPrefs.GetInt("Score", 0);
+        coins = PlayerPrefs.GetInt("Coins", 300);
 
         // Load unlocked levels
         string unlockedLevelsString = PlayerPrefs.GetString("UnlockedLevels", "");
@@ -158,8 +159,8 @@ public class GameManager : MonoBehaviour
             unlockedBoats = new List<int>(Array.ConvertAll(unlockedBoatsString.Split(','), int.Parse));
 
         // Load selected vehicles
-        selectedCar = PlayerPrefs.GetInt("SelectedCar", -1);
-        selectedDirtCar = PlayerPrefs.GetInt("SelectedDirtCar", -1);
-        selectedBoat = PlayerPrefs.GetInt("SelectedBoat", -1);
+        selectedCar = PlayerPrefs.GetInt("SelectedCar", 0);
+        selectedDirtCar = PlayerPrefs.GetInt("SelectedDirtCar", 0);
+        selectedBoat = PlayerPrefs.GetInt("SelectedBoat", 0);
     }
 }
