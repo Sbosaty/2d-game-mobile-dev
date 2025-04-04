@@ -193,10 +193,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 5
   defaultMaxSpeed: 15
-  maxSpeed: 6
   turnSpeed: 50
   driftFactor: 0.9
-  friction: 4
+  friction: 1
 --- !u!50 &3857143084243911830
 Rigidbody2D:
   serializedVersion: 5

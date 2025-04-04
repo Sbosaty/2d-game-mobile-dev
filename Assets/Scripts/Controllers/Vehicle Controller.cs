@@ -70,15 +70,15 @@ public class VehicleController : MonoBehaviour
         rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, friction * Time.fixedDeltaTime);
     }
 
-    public void Stop() 
-    {
-        inputY = 0;
-    }
+    //public void Stop() 
+    //{
+    //    inputY = 0;
+    //}
 
-    public void Go() 
-    {
-        inputY = 1;
-    }
+    //public void Go() 
+    //{
+    //    inputY = 1;
+    //}
 
     public void ReturnToDefaultVelocity() 
     {

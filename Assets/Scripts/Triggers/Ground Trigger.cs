@@ -16,20 +16,19 @@ public class GroundTrigger : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Boat"))
             {
-                vc.Go();
                 vc.ReturnToDefaultVelocity();
                 return;
             }
 
             if (collision.gameObject.CompareTag("Car"))
             {
-                vc.Stop();
+                vc.SetMaxSpeed(1);
                 return;
             }
 
             if (collision.gameObject.CompareTag("DirtCar"))
             {
-                vc.Stop();
+                vc.SetMaxSpeed(1);
                 return;
             }
         }
@@ -38,20 +37,18 @@ public class GroundTrigger : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Boat"))
             {
-                vc.Stop();
+                vc.SetMaxSpeed(offRoadSpeed);
                 return;
             }
 
             if (collision.gameObject.CompareTag("Car"))
             {
-                vc.Go();
                 vc.ReturnToDefaultVelocity();
                 return;
             }
 
             if (collision.gameObject.CompareTag("DirtCar"))
             {
-                vc.Go();
                 vc.SetMaxSpeed(offRoadSpeed);
                 return;
             }
@@ -61,20 +58,18 @@ public class GroundTrigger : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Boat"))
             {
-                vc.Stop();
+                vc.SetMaxSpeed(offRoadSpeed);
                 return;
             }
 
             if (collision.gameObject.CompareTag("Car"))
             {
-                vc.Go();
                 vc.SetMaxSpeed(offRoadSpeed);
                 return;
             }
 
             if (collision.gameObject.CompareTag("DirtCar"))
             {
-                vc.Go();
                 vc.ReturnToDefaultVelocity();
                 return;
             }
@@ -82,15 +77,7 @@ public class GroundTrigger : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Boat"))
-        {
-            collision.gameObject.GetComponent<VehicleController>().Stop();
-        }
-        else 
-        {
-            collision.gameObject.GetComponent<VehicleController>().SetMaxSpeed(offRoadSpeed);
-        }
-
+    { 
+        collision.gameObject.GetComponent<VehicleController>().SetMaxSpeed(offRoadSpeed);
     }
 }
