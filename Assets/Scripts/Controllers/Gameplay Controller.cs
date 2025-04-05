@@ -130,14 +130,14 @@ public class GameplayController : MonoBehaviour
                 camController.FindTarget();
                 spawnedCar.transform.position = newTransform.position;
                 spawnedCar.transform.rotation = newTransform.rotation;
-                spawnedCar.GetComponent<Rigidbody2D>().linearVelocity = newTransform.gameObject.GetComponent<Rigidbody2D>().linearVelocity;
+                spawnedCar.GetComponent<Rigidbody2D>().velocity = newTransform.gameObject.GetComponent<Rigidbody2D>().velocity;
                 break;
             case "DirtCar":
                 spawnedDirtCar.SetActive(true);
                 camController.FindTarget();
                 spawnedDirtCar.transform.position = newTransform.position;
                 spawnedDirtCar.transform.rotation = newTransform.rotation;
-                spawnedDirtCar.GetComponent<Rigidbody2D>().linearVelocity = newTransform.gameObject.GetComponent<Rigidbody2D>().linearVelocity;
+                spawnedDirtCar.GetComponent<Rigidbody2D>().velocity = newTransform.gameObject.GetComponent<Rigidbody2D>().velocity;
 
                 break;
             case "Boat":
@@ -145,7 +145,7 @@ public class GameplayController : MonoBehaviour
                 camController.FindTarget();
                 spawnedBoat.transform.position = newTransform.position;
                 spawnedBoat.transform.rotation = newTransform.rotation;
-                spawnedBoat.GetComponent<Rigidbody2D>().linearVelocity = newTransform.gameObject.GetComponent<Rigidbody2D>().linearVelocity;
+                spawnedBoat.GetComponent<Rigidbody2D>().velocity = newTransform.gameObject.GetComponent<Rigidbody2D>().velocity;
 
                 break;
             default:

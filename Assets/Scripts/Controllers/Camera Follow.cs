@@ -33,7 +33,7 @@ public class CameraFollow : MonoBehaviour
 
     void AdjustZoom()
     {
-        float speed = targetRb.linearVelocity.magnitude; 
+        float speed = targetRb.velocity.magnitude; 
 
         float targetZoom = baseZoom + (speed * zoomSpeedFactor);
 

@@ -44,12 +44,12 @@ public class VehicleController : MonoBehaviour
             rb.AddForce(transform.up * inputY * acceleration, ForceMode2D.Force);
         }
 
-        rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
     }
 
     void ApplySteering()
     {
-        if (rb.linearVelocity.magnitude > 0.1f)
+        if (rb.velocity.magnitude > 0.1f)
         {
             float turnAmount = -inputX * turnSpeed * Time.fixedDeltaTime;
             rb.MoveRotation(rb.rotation + turnAmount);
@@ -58,16 +58,16 @@ public class VehicleController : MonoBehaviour
 
     void ApplyDrift()
     {
-        Vector2 forwardVelocity = transform.up * Vector2.Dot(rb.linearVelocity, transform.up);
+        Vector2 forwardVelocity = transform.up * Vector2.Dot(rb.velocity, transform.up);
 
-        Vector2 rightVelocity = transform.right * Vector2.Dot(rb.linearVelocity, transform.right);
+        Vector2 rightVelocity = transform.right * Vector2.Dot(rb.velocity, transform.right);
 
-        rb.linearVelocity = forwardVelocity + rightVelocity * driftFactor;
+        rb.velocity = forwardVelocity + rightVelocity * driftFactor;
     }
 
     void ApplyFriction()
     {
-        rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, friction * Time.fixedDeltaTime);
+        rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, friction * Time.fixedDeltaTime);
     }
 
     //public void Stop() 
