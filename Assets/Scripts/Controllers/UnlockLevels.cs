@@ -14,7 +14,6 @@ public class UnlockLevels : MonoBehaviour
 
     public void UnlockLevel(string levelName) 
     {
-        int levelIndex = SceneManager.GetSceneByName(levelName).buildIndex;
-        GameManager.Instance.UnlockLevel(levelIndex);
+        GameManager.Instance.UnlockLevel(levelName);     
     }
 }

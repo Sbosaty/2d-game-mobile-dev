@@ -515,7 +515,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 656384182}
   m_OnClick:
     m_PersistentCalls:
@@ -650,7 +650,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 699185667}
   m_OnClick:
     m_PersistentCalls:
@@ -1398,6 +1398,7 @@ GameObject:
   - component: {fileID: 1738394205}
   - component: {fileID: 1738394207}
   - component: {fileID: 1738394206}
+  - component: {fileID: 1738394208}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1465,6 +1466,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 0
+--- !u!114 &1738394208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738394204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfd4ec4f625ce544954895df19e5e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelButtons:
+  - {fileID: 890882965}
+  - {fileID: 699185666}
+  - {fileID: 656384181}
 --- !u!1 &1844025772
 GameObject:
   m_ObjectHideFlags: 0

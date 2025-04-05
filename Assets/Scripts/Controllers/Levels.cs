@@ -12,7 +12,7 @@ public class Levels : MonoBehaviour
     {
         for (int i = 0;i < levelButtons.Count; i++)
         {
-            if (GameManager.Instance.IsLevelUnlocked(i))
+            if (GameManager.Instance.IsLevelUnlocked(levelButtons[i].name))
             {
                 levelButtons[i].enabled = true;
             }

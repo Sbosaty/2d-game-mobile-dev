@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float score = 0;
     public int coins = 300;
 
-    private List<int> unlockedLevels = new List<int>();
+    private List<string> unlockedLevels = new List<string>();
 
     public List<int> unlockedCars = new List<int>();
     public List<int> unlockedDirtCars = new List<int>();
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
         UnlockCar(0);
         UnlockDirtCar(0);
         UnlockBoat(0);
+        UnlockLevel("Level 1");
+
 
         SetSelectedCar(0);
         SetSelectedDirtCar(0);
@@ -43,11 +46,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void UnlockLevel(int levelIndex)
+    public void UnlockLevel(string levelID)
     {
-        if (!unlockedLevels.Contains(levelIndex))
+        if (!unlockedLevels.Contains(levelID))
         {
-            unlockedLevels.Add(levelIndex);
+            unlockedLevels.Add(levelID);
             SaveGameData();
         }
     }
@@ -97,9 +100,9 @@ public class GameManager : MonoBehaviour
         SaveGameData();
     }
 
-    public bool IsLevelUnlocked(int levelIndex)
+    public bool IsLevelUnlocked(string levelID)
     {
-        return unlockedLevels.Contains(levelIndex);
+        return unlockedLevels.Contains(levelID);
     }
 
     public bool IsCarUnlocked(int carIndex)
@@ -141,7 +144,7 @@ public class GameManager : MonoBehaviour
         // Load unlocked levels
         string unlockedLevelsString = PlayerPrefs.GetString("UnlockedLevels", "");
         if (!string.IsNullOrEmpty(unlockedLevelsString))
-            unlockedLevels = new List<int>(Array.ConvertAll(unlockedLevelsString.Split(','), int.Parse));
+            unlockedLevels = new List<string>(unlockedLevelsString.Split(','));
 
         // Load unlocked cars
         string unlockedCarsString = PlayerPrefs.GetString("UnlockedCars", "");
