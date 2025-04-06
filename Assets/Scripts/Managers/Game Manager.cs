@@ -6,9 +6,11 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+ 
 
-    public float score = 0;
+    public float score = 0.0f;
     public int coins = 300;
+
 
     private List<string> unlockedLevels = new List<string>();
 
