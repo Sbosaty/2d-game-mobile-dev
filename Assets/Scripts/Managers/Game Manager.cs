@@ -2,6 +2,10 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+using System.Text;
+using UnityEngine.Networking;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -122,48 +126,89 @@ public class GameManager : MonoBehaviour
 
     public void SaveGameData()
     {
-        PlayerPrefs.SetFloat ("Score", score);
-        PlayerPrefs.SetInt ("Coins", coins);
-        PlayerPrefs.SetString("UnlockedLevels", string.Join(",", unlockedLevels));
-        PlayerPrefs.SetString("UnlockedCars", string.Join(",", unlockedCars));
-        PlayerPrefs.SetString("UnlockedDirtCars", string.Join(",", unlockedDirtCars));
-        PlayerPrefs.SetString("UnlockedBoats", string.Join(",", unlockedBoats));
+        GameData data = new GameData
+        {
+            coins = coins,
+            unlockedLevels = unlockedLevels,
+            unlockedCars = unlockedCars,
+            unlockedDirtCars = unlockedDirtCars,
+            unlockedBoats = unlockedBoats,
+            selectedCar = selectedCar,
+            selectedDirtCar = selectedDirtCar,
+            selectedBoat = selectedBoat
+        };
 
-        PlayerPrefs.SetInt("SelectedCar", selectedCar);
-        PlayerPrefs.SetInt("SelectedDirtCar", selectedDirtCar);
-        PlayerPrefs.SetInt("SelectedBoat", selectedBoat);
-
-        PlayerPrefs.Save();
+        string json = JsonUtility.ToJson(data);
+        StartCoroutine(SendDataToServer(json));
     }
 
     public void LoadGameData()
     {
-        score = PlayerPrefs.GetInt("Score", 0);
-        coins = PlayerPrefs.GetInt("Coins", 300);
+        StartCoroutine(GetDataFromServer());
 
-        // Load unlocked levels
-        string unlockedLevelsString = PlayerPrefs.GetString("UnlockedLevels", "");
-        if (!string.IsNullOrEmpty(unlockedLevelsString))
-            unlockedLevels = new List<string>(unlockedLevelsString.Split(','));
-
-        // Load unlocked cars
-        string unlockedCarsString = PlayerPrefs.GetString("UnlockedCars", "");
-        if (!string.IsNullOrEmpty(unlockedCarsString))
-            unlockedCars = new List<int>(Array.ConvertAll(unlockedCarsString.Split(','), int.Parse));
-
-        // Load unlocked dirt cars
-        string unlockedDirtCarsString = PlayerPrefs.GetString("UnlockedDirtCars", "");
-        if (!string.IsNullOrEmpty(unlockedDirtCarsString))
-            unlockedDirtCars = new List<int>(Array.ConvertAll(unlockedDirtCarsString.Split(','), int.Parse));
-
-        // Load unlocked boats
-        string unlockedBoatsString = PlayerPrefs.GetString("UnlockedBoats", "");
-        if (!string.IsNullOrEmpty(unlockedBoatsString))
-            unlockedBoats = new List<int>(Array.ConvertAll(unlockedBoatsString.Split(','), int.Parse));
-
-        // Load selected vehicles
-        selectedCar = PlayerPrefs.GetInt("SelectedCar", 0);
-        selectedDirtCar = PlayerPrefs.GetInt("SelectedDirtCar", 0);
-        selectedBoat = PlayerPrefs.GetInt("SelectedBoat", 0);
     }
+
+    IEnumerator SendDataToServer(string json)
+    {
+        string userId = SystemInfo.deviceUniqueIdentifier; // or use your own player ID
+        string url = $"http://localhost:3000/save/{userId}"; // Replace with your deployed server later
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] jsonToSend = new UTF8Encoding().GetBytes(json);
+        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+            Debug.Log("Game data saved successfully!");
+        else
+            Debug.LogError("Error saving game data: " + request.error);
+    }
+
+    IEnumerator GetDataFromServer()
+    {
+        string userId = SystemInfo.deviceUniqueIdentifier;
+        string url = $"http://localhost:3000/load/{userId}"; // Replace with deployed server if needed
+
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string json = request.downloadHandler.text;
+            GameData data = JsonUtility.FromJson<GameData>(json);
+
+            coins = data.coins;
+            unlockedLevels = data.unlockedLevels ?? new List<string>();
+            unlockedCars = data.unlockedCars ?? new List<int>();
+            unlockedDirtCars = data.unlockedDirtCars ?? new List<int>();
+            unlockedBoats = data.unlockedBoats ?? new List<int>();
+            selectedCar = data.selectedCar;
+            selectedDirtCar = data.selectedDirtCar;
+            selectedBoat = data.selectedBoat;
+
+            Debug.Log("Game data loaded successfully!");
+        }
+        else
+        {
+            Debug.LogError("Error loading game data: " + request.error);
+        }
+    }
+
+}
+
+
+[Serializable]
+public class GameData
+{
+    public int coins;
+    public List<string> unlockedLevels;
+    public List<int> unlockedCars;
+    public List<int> unlockedDirtCars;
+    public List<int> unlockedBoats;
+    public int selectedCar;
+    public int selectedDirtCar;
+    public int selectedBoat;
 }
