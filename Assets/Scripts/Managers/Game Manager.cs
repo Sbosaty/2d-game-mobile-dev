@@ -1,23 +1,18 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections;
 using System.Text;
 using UnityEngine.Networking;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
- 
 
     public float score = 0.0f;
     public int coins = 300;
 
-
     private List<string> unlockedLevels = new List<string>();
-
     public List<int> unlockedCars = new List<int>();
     public List<int> unlockedDirtCars = new List<int>();
     public List<int> unlockedBoats = new List<int>();
@@ -25,7 +20,6 @@ public class GameManager : MonoBehaviour
     public int selectedCar = -1;
     public int selectedDirtCar = -1;
     public int selectedBoat = -1;
-
 
     private void Awake()
     {
@@ -45,12 +39,10 @@ public class GameManager : MonoBehaviour
         UnlockBoat(0);
         UnlockLevel("Level 1");
 
-
         SetSelectedCar(0);
         SetSelectedDirtCar(0);
         SetSelectedBoat(0);
     }
-
 
     public void UnlockLevel(string levelID)
     {
@@ -106,25 +98,10 @@ public class GameManager : MonoBehaviour
         SaveGameData();
     }
 
-    public bool IsLevelUnlocked(string levelID)
-    {
-        return unlockedLevels.Contains(levelID);
-    }
-
-    public bool IsCarUnlocked(int carIndex)
-    {
-        return unlockedCars.Contains(carIndex);
-    }
-
-    public bool IsDirtCarUnlocked(int dirtCarIndex)
-    {
-        return unlockedDirtCars.Contains(dirtCarIndex);
-    }
-
-    public bool IsBoatUnlocked(int boatIndex)
-    {
-        return unlockedBoats.Contains(boatIndex);
-    }
+    public bool IsLevelUnlocked(string levelID) => unlockedLevels.Contains(levelID);
+    public bool IsCarUnlocked(int carIndex) => unlockedCars.Contains(carIndex);
+    public bool IsDirtCarUnlocked(int dirtCarIndex) => unlockedDirtCars.Contains(dirtCarIndex);
+    public bool IsBoatUnlocked(int boatIndex) => unlockedBoats.Contains(boatIndex);
 
     public void SaveGameData()
     {
@@ -147,13 +124,12 @@ public class GameManager : MonoBehaviour
     public void LoadGameData()
     {
         StartCoroutine(GetDataFromServer());
-
     }
 
     IEnumerator SendDataToServer(string json)
     {
-        string userId = SystemInfo.deviceUniqueIdentifier; // or use your own player ID
-        string url = $"http://localhost:3000/save/{userId}"; // Replace with your deployed server later
+        string userId = SystemInfo.deviceUniqueIdentifier;
+        string url = $"http://localhost:3000/save/{userId}";
 
         UnityWebRequest request = new UnityWebRequest(url, "POST");
         byte[] jsonToSend = new UTF8Encoding().GetBytes(json);
@@ -164,15 +140,15 @@ public class GameManager : MonoBehaviour
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
-            Debug.Log("Game data saved successfully!");
+            Debug.Log("✅ Game data saved successfully!");
         else
-            Debug.LogError("Error saving game data: " + request.error);
+            Debug.LogError("❌ Error saving game data: " + request.error);
     }
 
     IEnumerator GetDataFromServer()
     {
         string userId = SystemInfo.deviceUniqueIdentifier;
-        string url = $"http://localhost:3000/load/{userId}"; // Replace with deployed server if needed
+        string url = $"http://localhost:3000/load/{userId}";
 
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
@@ -180,27 +156,40 @@ public class GameManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             string json = request.downloadHandler.text;
-            GameData data = JsonUtility.FromJson<GameData>(json);
 
-            coins = data.coins;
-            unlockedLevels = data.unlockedLevels ?? new List<string>();
-            unlockedCars = data.unlockedCars ?? new List<int>();
-            unlockedDirtCars = data.unlockedDirtCars ?? new List<int>();
-            unlockedBoats = data.unlockedBoats ?? new List<int>();
-            selectedCar = data.selectedCar;
-            selectedDirtCar = data.selectedDirtCar;
-            selectedBoat = data.selectedBoat;
+            try
+            {
+                GameData data = JsonUtility.FromJson<GameData>(json);
 
-            Debug.Log("Game data loaded successfully!");
+                if (data != null)
+                {
+                    coins = data.coins;
+                    unlockedLevels = data.unlockedLevels ?? new List<string>();
+                    unlockedCars = data.unlockedCars ?? new List<int>();
+                    unlockedDirtCars = data.unlockedDirtCars ?? new List<int>();
+                    unlockedBoats = data.unlockedBoats ?? new List<int>();
+                    selectedCar = data.selectedCar;
+                    selectedDirtCar = data.selectedDirtCar;
+                    selectedBoat = data.selectedBoat;
+
+                    Debug.Log("✅ Game data loaded successfully!");
+                }
+                else
+                {
+                    Debug.LogWarning("⚠️ Received empty or invalid game data. Using defaults.");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"❌ Failed to parse game data: {e.Message}");
+            }
         }
         else
         {
-            Debug.LogError("Error loading game data: " + request.error);
+            Debug.LogWarning($"⚠️ Failed to load game data: {request.error}");
         }
     }
-
 }
-
 
 [Serializable]
 public class GameData
