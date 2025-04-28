@@ -127,22 +127,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void SaveGameData()
+{
+    GameData data = new GameData
     {
-        GameData data = new GameData
-        {
-            coins = coins,
-            unlockedLevels = unlockedLevels,
-            unlockedCars = unlockedCars,
-            unlockedDirtCars = unlockedDirtCars,
-            unlockedBoats = unlockedBoats,
-            selectedCar = selectedCar,
-            selectedDirtCar = selectedDirtCar,
-            selectedBoat = selectedBoat
-        };
+        coins = coins,
+        unlockedLevels = unlockedLevels,
+        unlockedCars = unlockedCars,
+        unlockedDirtCars = unlockedDirtCars,
+        unlockedBoats = unlockedBoats,
+        selectedCar = selectedCar,
+        selectedDirtCar = selectedDirtCar,
+        selectedBoat = selectedBoat
+    };
 
-        string json = JsonUtility.ToJson(data);
-        StartCoroutine(SendDataToServer(json));
-    }
+    string json = JsonUtility.ToJson(data);
+    StartCoroutine(SendDataToServer(json));
+}
 
     public void LoadGameData()
     {
@@ -151,23 +151,23 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator SendDataToServer(string json)
-    {
-        string userId = SystemInfo.deviceUniqueIdentifier; // or use your own player ID
-        string url = $"http://localhost:3000/save/{userId}"; // Replace with your deployed server later
+{
+    string userId = SystemInfo.deviceUniqueIdentifier;
+    string url = $"http://localhost:3000/save/{userId}";
 
-        UnityWebRequest request = new UnityWebRequest(url, "POST");
-        byte[] jsonToSend = new UTF8Encoding().GetBytes(json);
-        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
+    UnityWebRequest request = new UnityWebRequest(url, "POST");
+    byte[] jsonToSend = new UTF8Encoding().GetBytes(json);
+    request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+    request.downloadHandler = new DownloadHandlerBuffer();
+    request.SetRequestHeader("Content-Type", "application/json");
 
-        yield return request.SendWebRequest();
+    yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Success)
-            Debug.Log("Game data saved successfully!");
-        else
-            Debug.LogError("Error saving game data: " + request.error);
-    }
+    if (request.result == UnityWebRequest.Result.Success)
+        Debug.Log("Game data saved successfully!");
+    else
+        Debug.LogError("Error saving game data: " + request.error);
+}
 
     IEnumerator GetDataFromServer()
     {
