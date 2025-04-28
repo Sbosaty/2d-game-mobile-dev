@@ -140,9 +140,9 @@ public class GameManager : MonoBehaviour
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
-            Debug.Log("✅ Game data saved successfully!");
+            Debug.Log("Game data saved successfully!");
         else
-            Debug.LogError("❌ Error saving game data: " + request.error);
+            Debug.LogError("Error saving game data: " + request.error);
     }
 
     IEnumerator GetDataFromServer()
@@ -172,21 +172,21 @@ public class GameManager : MonoBehaviour
                     selectedDirtCar = data.selectedDirtCar;
                     selectedBoat = data.selectedBoat;
 
-                    Debug.Log("✅ Game data loaded successfully!");
+                    Debug.Log("Game data loaded successfully!");
                 }
                 else
                 {
-                    Debug.LogWarning("⚠️ Received empty or invalid game data. Using defaults.");
+                    Debug.LogWarning("Received empty or invalid game data. Using defaults.");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError($"❌ Failed to parse game data: {e.Message}");
+                Debug.LogError($"Failed to parse game data: {e.Message}");
             }
         }
         else
         {
-            Debug.LogWarning($"⚠️ Failed to load game data: {request.error}");
+            Debug.LogWarning($"Failed to load game data: {request.error}");
         }
     }
 }
